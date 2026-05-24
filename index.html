@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kiran Makeover | Best Salon & Makeup Artist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+  <style>
+    :root{
+      --pink:#f35f8f;
+      --pink-dark:#d93d72;
+      --pink-light:#ffe7ef;
+      --rose:#fff4f7;
+      --white:#ffffff;
+      --black:#19151a;
+      --text:#3b3036;
+      --muted:#786b72;
+      --gold:#d9a64a;
+      --shadow:0 22px 60px rgba(243,95,143,.18);
+      --glass:rgba(255,255,255,.78);
+      --border:rgba(243,95,143,.22);
+    }
+
+    *{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth}
+    body{
+      font-family:'Poppins',sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 12% 20%, rgba(255,190,211,.35), transparent 28%),
+        radial-gradient(circle at 90% 10%, rgba(255,219,231,.65), transparent 25%),
+        linear-gradient(180deg,#fff 0%,#fff8fb 45%,#fff 100%);
+      overflow-x:hidden;
+    }
+    img{width:100%;display:block}
+    a{text-decoration:none;color:inherit}
+    section{padding:80px 7%}
+
+    .cursor-glow{
+      position:fixed;width:280px;height:280px;border-radius:50%;
+      pointer-events:none;z-index:0;opacity:.18;filter:blur(30px);
+      background:var(--pink);transform:translate(-50%,-50%);
+    }
+
+    .topbar{
+      position:fixed;top:0;left:0;width:100%;z-index:999;
+      display:flex;align-items:center;justify-content:space-between;
+      padding:16px 7%;background:rgba(255,255,255,.82);
+      backdrop-filter:blur(18px);border-bottom:1px solid rgba(243,95,143,.12);
+      transition:.35s ease;
+    }
+    .topbar.scrolled{padding:10px 7%;box-shadow:0 14px 35px rgba(243,95,143,.12)}
+    .logo{display:flex;align-items:center;gap:12px}
+    .logo-badge{
+      width:48px;height:48px;border-radius:50%;display:grid;place-items:center;
+      background:linear-gradient(145deg,#fff,#ffe3ec);border:1px solid var(--border);
+      box-shadow:inset 0 2px 8px rgba(255,255,255,.9), 0 10px 25px rgba(243,95,143,.18);
+      font-family:'Playfair Display',serif;color:var(--pink-dark);font-weight:700;position:relative;
+    }
+    .logo-badge:before{content:'♕';position:absolute;top:-15px;color:var(--pink);font-size:18px}
+    .logo h3{font-family:'Playfair Display',serif;color:var(--pink-dark);font-size:20px;letter-spacing:1px;line-height:1}
+    .logo small{font-size:9px;letter-spacing:2px;color:var(--muted)}
+
+    .nav{display:flex;gap:30px;align-items:center}
+    .nav a{font-size:14px;font-weight:500;position:relative}
+    .nav a:after{content:'';position:absolute;left:0;bottom:-8px;width:0;height:2px;background:var(--pink);transition:.3s}
+    .nav a:hover,.nav a.active{color:var(--pink-dark)}
+    .nav a:hover:after,.nav a.active:after{width:100%}
+    .book-btn,.btn{
+      border:none;cursor:pointer;border-radius:50px;padding:14px 28px;font-weight:700;
+      background:linear-gradient(135deg,var(--pink),#ff8aad);color:white;
+      box-shadow:0 16px 30px rgba(243,95,143,.32);transition:.35s ease;
+      display:inline-flex;align-items:center;gap:10px;justify-content:center;
+    }
+    .book-btn:hover,.btn:hover{transform:translateY(-5px) scale(1.03);box-shadow:0 24px 40px rgba(243,95,143,.45)}
+    .menu-btn{display:none;font-size:25px;color:var(--pink-dark);cursor:pointer}
+
+    .hero{
+      min-height:100vh;display:grid;grid-template-columns:1.05fr .95fr;align-items:center;
+      padding:130px 7% 60px;position:relative;overflow:hidden;
+    }
+    .hero:before{
+      content:'';position:absolute;right:-130px;top:100px;width:560px;height:560px;border-radius:50%;
+      background:linear-gradient(135deg,#fff0f5,#ffc8da);filter:blur(8px);z-index:-1;animation:pulse 6s ease-in-out infinite;
+    }
+    .hero-text{animation:fadeUp .9s ease both}
+    .script{font-family:'Great Vibes',cursive;color:var(--pink);font-size:34px;margin-bottom:10px}
+    .hero h1{font-family:'Playfair Display',serif;font-size:clamp(48px,6vw,86px);line-height:1.03;color:#221b20;margin-bottom:10px}
+    .hero h2{font-family:'Playfair Display',serif;color:var(--pink);font-size:clamp(25px,3vw,40px);margin-bottom:22px}
+    .hero p{max-width:560px;color:#5a4b52;line-height:1.8;margin-bottom:28px;font-size:17px}
+    .badges{display:flex;gap:28px;flex-wrap:wrap;margin-bottom:30px}
+    .badge{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600;color:#55454d}
+    .badge i{font-size:24px;color:var(--pink)}
+    .hero-actions{display:flex;gap:16px;flex-wrap:wrap}
+    .outline-btn{background:white;color:var(--pink-dark);border:1px solid var(--border);box-shadow:none}
+    .outline-btn:hover{background:var(--pink-light)}
+
+    .hero-card{position:relative;perspective:1200px;animation:floatIn 1s ease both .25s}
+    .bride-card{
+      border-radius:42px;overflow:hidden;transform-style:preserve-3d;
+      box-shadow:0 35px 90px rgba(243,95,143,.28);border:10px solid #fff;
+      background:#fff;transition:.25s ease;
+    }
+    .bride-card img{height:640px;object-fit:cover;object-position:center}
+    .floating-card{
+      position:absolute;left:-35px;bottom:60px;background:var(--glass);backdrop-filter:blur(18px);
+      border:1px solid var(--border);border-radius:24px;padding:18px 22px;box-shadow:var(--shadow);
+      animation:float 4s ease-in-out infinite;
+    }
+    .floating-card strong{font-size:30px;color:var(--pink-dark)}
+    .floating-card span{display:block;font-size:13px;color:var(--muted)}
+
+    .side-contact{position:fixed;right:18px;top:38%;z-index:800;background:white;border-radius:28px;padding:10px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:10px}
+    .side-contact a{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;color:white;background:var(--pink);transition:.3s}
+    .side-contact a:hover{transform:translateX(-8px) rotate(8deg);background:var(--pink-dark)}
+    .whatsapp-float{position:fixed;right:26px;bottom:25px;z-index:900;width:64px;height:64px;border-radius:50%;display:grid;place-items:center;background:#25D366;color:#fff;font-size:32px;box-shadow:0 16px 35px rgba(37,211,102,.4);animation:whatsapp 2s infinite}
+
+    .section-title{text-align:center;margin-bottom:45px}
+    .section-title .script{font-size:28px;margin-bottom:-5px}
+    .section-title h2{font-family:'Playfair Display',serif;font-size:42px;color:#221b20}
+    .line{width:120px;height:2px;background:linear-gradient(90deg,transparent,var(--pink),transparent);margin:12px auto;position:relative}
+    .line:after{content:'◆';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);color:var(--pink);font-size:12px;background:white;padding:0 8px}
+
+    .services-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:22px}
+    .service-card{
+      background:white;border:1px solid var(--border);border-radius:22px;overflow:hidden;text-align:center;
+      box-shadow:0 16px 40px rgba(243,95,143,.10);transition:.45s ease;transform-style:preserve-3d;position:relative;
+    }
+    .service-card:hover{transform:translateY(-18px) rotateX(8deg);box-shadow:0 30px 70px rgba(243,95,143,.28)}
+    .service-card img{height:170px;object-fit:cover;transition:.5s ease}
+    .service-card:hover img{transform:scale(1.12)}
+    .service-icon{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;background:white;color:var(--pink);border:1px solid var(--border);margin:-27px auto 10px;position:relative;z-index:2;font-size:23px;box-shadow:0 10px 25px rgba(243,95,143,.18)}
+    .service-card h3{padding:0 10px 20px;font-size:16px}
+
+    .stats{margin-top:35px;background:linear-gradient(135deg,#ff7ca5,#f05b8a);border-radius:20px;color:white;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:25px;box-shadow:var(--shadow)}
+    .stat{text-align:center;border-right:1px solid rgba(255,255,255,.35)}
+    .stat:last-child{border-right:none}
+    .stat i{font-size:33px;margin-bottom:8px}
+    .stat h3{font-size:30px}.stat p{font-size:13px}
+
+    .about-wrap{display:grid;grid-template-columns:1fr 1fr .8fr;gap:35px;align-items:center}
+    .about-img{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .about-img img{border-radius:22px;height:180px;object-fit:cover;box-shadow:var(--shadow);transition:.4s}
+    .about-img img:first-child{grid-column:1/3;height:310px}
+    .about-img img:hover{transform:scale(1.04) rotate(1deg)}
+    .about-text h2{font-family:'Playfair Display',serif;font-size:38px;line-height:1.2;margin-bottom:18px}
+    .about-text p{color:var(--muted);line-height:1.8;margin-bottom:18px}
+    .check-list{display:grid;gap:12px;margin-bottom:22px}
+    .check-list li{list-style:none;font-size:14px}.check-list i{color:var(--pink);margin-right:10px}
+    .choose-box{background:white;border:1px solid var(--border);border-radius:28px;padding:35px;box-shadow:var(--shadow)}
+    .choose-box h3{font-family:'Playfair Display',serif;font-size:30px;margin-bottom:20px}
+    .choose-item{display:flex;align-items:center;gap:14px;margin:20px 0}.choose-item i{width:44px;height:44px;border-radius:50%;background:var(--pink-light);display:grid;place-items:center;color:var(--pink-dark)}
+
+    .portfolio-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:16px}
+    .portfolio-item{position:relative;overflow:hidden;border-radius:18px;border:4px solid white;box-shadow:0 14px 32px rgba(243,95,143,.16);cursor:pointer}
+    .portfolio-item img{height:170px;object-fit:cover;transition:.6s}
+    .portfolio-item:after{content:'View Look';position:absolute;inset:0;background:rgba(243,95,143,.72);color:white;display:grid;place-items:center;font-weight:700;opacity:0;transition:.4s}
+    .portfolio-item:hover img{transform:scale(1.18) rotate(3deg)}
+    .portfolio-item:hover:after{opacity:1}
+
+    .packages{background:linear-gradient(180deg,#fff,#fff1f6)}
+    .package-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+    .package-card{background:white;border:1px solid var(--border);border-radius:28px;padding:34px;box-shadow:var(--shadow);position:relative;overflow:hidden;transition:.4s}
+    .package-card.featured{transform:scale(1.05);border:2px solid var(--pink)}
+    .package-card:hover{transform:translateY(-14px)}
+    .package-card.featured:hover{transform:scale(1.05) translateY(-14px)}
+    .package-card h3{font-family:'Playfair Display',serif;font-size:30px}.price{font-size:38px;color:var(--pink-dark);font-weight:800;margin:15px 0}.package-card li{list-style:none;margin:13px 0;color:var(--muted)}.package-card i{color:var(--pink);margin-right:10px}
+
+    .review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+    .review-card{background:white;border:1px solid var(--border);border-radius:24px;padding:28px;box-shadow:var(--shadow);transition:.4s}
+    .review-card:hover{transform:translateY(-12px) rotateX(5deg)}
+    .stars{color:#ffbf3c;margin-bottom:15px}.review-card p{color:#655860;line-height:1.8}.client{display:flex;align-items:center;gap:12px;margin-top:20px}.client img{width:48px;height:48px;border-radius:50%;object-fit:cover}
+
+    .contact{background:linear-gradient(135deg,#fff7fa,#ffe3ec)}
+    .contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:35px}
+    .contact-info,.booking-form{background:white;border-radius:30px;padding:35px;box-shadow:var(--shadow);border:1px solid var(--border)}
+    .contact-info h2,.booking-form h2{font-family:'Playfair Display',serif;font-size:34px;margin-bottom:22px}
+    .info-row{display:flex;gap:16px;margin:18px 0}.info-row i{width:45px;height:45px;border-radius:50%;display:grid;place-items:center;background:var(--pink-light);color:var(--pink-dark)}
+    .booking-form input,.booking-form select,.booking-form textarea{width:100%;padding:15px 18px;margin-bottom:14px;border:1px solid var(--border);border-radius:14px;outline:none;font-family:inherit;background:#fff9fb}.booking-form input:focus,.booking-form select:focus,.booking-form textarea:focus{border-color:var(--pink);box-shadow:0 0 0 4px rgba(243,95,143,.10)}
+
+    footer{padding:35px 7%;background:white;text-align:center;border-top:1px solid var(--border)}
+    .social{display:flex;gap:12px;justify-content:center;margin:18px 0}.social a{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--pink-light);color:var(--pink-dark);transition:.3s}.social a:hover{background:var(--pink);color:white;transform:translateY(-5px)}
+
+    .reveal{opacity:0;transform:translateY(60px);transition:1s ease}.reveal.show{opacity:1;transform:translateY(0)}
+
+    @keyframes fadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes floatIn{from{opacity:0;transform:translateX(80px)}to{opacity:1;transform:translateX(0)}}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-18px)}}
+    @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+    @keyframes whatsapp{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+
+    @media(max-width:1100px){
+      .services-grid{grid-template-columns:repeat(3,1fr)}
+      .about-wrap{grid-template-columns:1fr}.portfolio-grid{grid-template-columns:repeat(4,1fr)}
+      .hero{grid-template-columns:1fr;text-align:center}.hero p{margin-left:auto;margin-right:auto}.badges,.hero-actions{justify-content:center}.hero-card{max-width:620px;margin:30px auto 0}.bride-card img{height:540px}
+    }
+    @media(max-width:850px){
+      .menu-btn{display:block}.nav{position:absolute;top:76px;left:5%;right:5%;background:white;border:1px solid var(--border);border-radius:24px;box-shadow:var(--shadow);padding:24px;flex-direction:column;display:none}.nav.open{display:flex}.book-btn.top{display:none}
+      section{padding:65px 5%}.hero{padding:120px 5% 50px}.hero h1{font-size:46px}.script{font-size:28px}.services-grid,.package-grid,.review-grid,.contact-wrap{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.stat:nth-child(2){border-right:none}.portfolio-grid{grid-template-columns:repeat(2,1fr)}.side-contact{display:none}.package-card.featured{transform:scale(1)}.bride-card img{height:450px}.floating-card{left:10px;bottom:25px}
+    }
+    @media(max-width:520px){
+      .logo h3{font-size:16px}.logo-badge{width:42px;height:42px}.hero h1{font-size:38px}.hero h2{font-size:24px}.hero p{font-size:14px}.badges{gap:14px}.stats{grid-template-columns:1fr}.stat{border-right:none;border-bottom:1px solid rgba(255,255,255,.35);padding-bottom:12px}.stat:last-child{border-bottom:none}.bride-card img{height:360px}.section-title h2{font-size:32px}.about-text h2{font-size:30px}.portfolio-grid{gap:10px}.portfolio-item img{height:135px}.whatsapp-float{width:56px;height:56px;font-size:28px}
+    }
+  </style>
+</head>
+<body>
+  <div class="cursor-glow" id="cursorGlow"></div>
+
+  <header class="topbar" id="topbar">
+    <a href="#home" class="logo">
+      <div class="logo-badge">KM</div>
+      <div><h3>KIRAN MAKEOVER</h3><small>BEAUTY BEYOND LIMITS</small></div>
+    </a>
+    <nav class="nav" id="nav">
+      <a href="#home" class="active">Home</a>
+      <a href="#about">About Us</a>
+      <a href="#services">Services</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#packages">Packages</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="book-btn top" href="https://wa.me/916280174636?text=Hello%20Kiran%20Makeover,%20I%20want%20to%20book%20an%20appointment" target="_blank">Book Now <i class="fa-brands fa-whatsapp"></i></a>
+    <i class="fa-solid fa-bars menu-btn" id="menuBtn"></i>
+  </header>
+
+  <div class="side-contact">
+    <a href="https://wa.me/916280174636" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+    <a href="tel:+916280174636"><i class="fa-solid fa-phone"></i></a>
+    <a href="#contact"><i class="fa-solid fa-location-dot"></i></a>
+  </div>
+  <a class="whatsapp-float" href="https://wa.me/916280174636" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-text">
+        <div class="script">Look Beautiful, Feel Confident</div>
+        <h1>KIRAN MAKEOVER</h1>
+        <h2>Best Salon, Best Makeup Artist</h2>
+        <p>Professional salon and bridal makeup services for every occasion. Premium products, hygienic setup and customized beauty looks for your special day.</p>
+        <div class="badges">
+          <div class="badge"><i class="fa-solid fa-user-tie"></i> Expert Team</div>
+          <div class="badge"><i class="fa-regular fa-gem"></i> Premium Products</div>
+          <div class="badge"><i class="fa-regular fa-heart"></i> Client Satisfaction</div>
+        </div>
+        <div class="hero-actions">
+          <a href="https://wa.me/916280174636?text=Hello,%20I%20want%20to%20book%20appointment" class="btn" target="_blank">Book Appointment <i class="fa-brands fa-whatsapp"></i></a>
+          <a href="#portfolio" class="btn outline-btn">View Our Work</a>
+        </div>
+      </div>
+      <div class="hero-card" id="tiltCard">
+        <div class="bride-card">
+          <img src="https://images.unsplash.com/photo-1610173827043-62fa1f832a35?auto=format&fit=crop&w=900&q=80" alt="Bridal makeup look">
+        </div>
+        <div class="floating-card"><strong>1500+</strong><span>Happy Clients</span></div>
+      </div>
+    </section>
+
+    <section id="services" class="reveal">
+      <div class="section-title"><div class="script">Our Services</div><h2>What We Offer</h2><div class="line"></div></div>
+      <div class="services-grid">
+        <div class="service-card"><img src="https://images.unsplash.com/photo-1595475884562-073c30d45670?auto=format&fit=crop&w=600&q=80"><div class="service-icon"><i class="fa-solid fa-crown"></i></div><h3>Bridal Makeup</h3></div>
+        <div class="service-card"><img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?auto=format&fit=crop&w=600&q=80"><div class="service-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div><h3>Party Makeup</h3></div>
+        <div class="service-card"><img src="https://images.unsplash.com/photo-1522336572468-97b06e8ef143?auto=format&fit=crop&w=600&q=80"><div class="service-icon"><i class="fa-solid fa-scissors"></i></div><h3>Hair Styling</h3></div>
+        <div class="service-card"><img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80"><div class="service-icon"><i class="fa-solid fa-spa"></i></div><h3>Skin & Hair Care</h3></div>
+        <div class="service-card"><img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=600&q=80"><div class="service-icon"><i class="fa-solid fa-hand-sparkles"></i></div><h3>Nail Art</h3></div>
+        <div class="service-card"><img src="https://images.unsplash.com/photo-1519415943484-9fa1873496d4?auto=format&fit=crop&w=600&q=80"><div class="service-icon"><i class="fa-solid fa-leaf"></i></div><h3>Mehndi Design</h3></div>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><i class="fa-regular fa-star"></i><h3>5+</h3><p>Years Experience</p></div>
+        <div class="stat"><i class="fa-solid fa-users"></i><h3>1500+</h3><p>Happy Clients</p></div>
+        <div class="stat"><i class="fa-regular fa-heart"></i><h3>100%</h3><p>Satisfaction</p></div>
+        <div class="stat"><i class="fa-regular fa-gem"></i><h3>Premium</h3><p>Products Used</p></div>
+      </div>
+    </section>
+
+    <section id="about" class="reveal">
+      <div class="about-wrap">
+        <div class="about-img">
+          <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=900&q=80" alt="Makeup artist">
+          <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=600&q=80" alt="Salon interior">
+          <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&w=600&q=80" alt="Makeup products">
+        </div>
+        <div class="about-text">
+          <div class="script">About Us</div>
+          <h2>We Make Your Best Day Even More Special</h2>
+          <p>Kiran Makeover is a professional salon and makeup studio dedicated to enhancing your natural beauty with modern techniques and premium products.</p>
+          <ul class="check-list">
+            <li><i class="fa-solid fa-circle-check"></i>Experienced & Certified Team</li>
+            <li><i class="fa-solid fa-circle-check"></i>Hygienic & Safe Environment</li>
+            <li><i class="fa-solid fa-circle-check"></i>Personalized Look for Every Client</li>
+            <li><i class="fa-solid fa-circle-check"></i>Bridal Specialists</li>
+          </ul>
+          <a href="#contact" class="btn">Know More About Us</a>
+        </div>
+        <div class="choose-box">
+          <h3>Why Choose Us?</h3>
+          <div class="line" style="margin-left:0"></div>
+          <div class="choose-item"><i class="fa-solid fa-palette"></i><span>Trendy & Customized Looks</span></div>
+          <div class="choose-item"><i class="fa-solid fa-briefcase-medical"></i><span>Premium Quality Products</span></div>
+          <div class="choose-item"><i class="fa-regular fa-clock"></i><span>On-time Service</span></div>
+          <div class="choose-item"><i class="fa-solid fa-tags"></i><span>Affordable Packages</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="portfolio" class="reveal">
+      <div class="section-title"><div class="script">Our Work</div><h2>Portfolio</h2><div class="line"></div></div>
+      <div class="portfolio-grid">
+        <div class="portfolio-item"><img src="https://images.unsplash.com/photo-1595475884562-073c30d45670?auto=format&fit=crop&w=500&q=80"></div>
+        <div class="portfolio-item"><img src="https://images.unsplash.com/photo-1610173827043-62fa1f832a35?auto=format&fit=crop&w=500&q=80"></div>
+        <div class="portfolio-item"><img src="https://images.unsplash.com/photo-1522336572468-97b06e8ef143?auto=format&fit=crop&w=500&q=80"></div>
+        <div class="portfolio-item"><img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?auto=format&fit=crop&w=500&q=80"></div>
+        <div class="portfolio-item"><img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=500&q=80"></div>
+        <div class="portfolio-item"><img src="https://images.unsplash.com/photo-1519415943484-9fa1873496d4?auto=format&fit=crop&w=500&q=80"></div>
+        <div class="portfolio-item"><img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=500&q=80"></div>
+      </div>
+    </section>
+
+    <section id="packages" class="packages reveal">
+      <div class="section-title"><div class="script">Beauty Packages</div><h2>Our Packages</h2><div class="line"></div></div>
+      <div class="package-grid">
+        <div class="package-card"><h3>Basic Glow</h3><div class="price">₹999</div><ul><li><i class="fa-solid fa-check"></i>Basic Makeup</li><li><i class="fa-solid fa-check"></i>Hair Setting</li><li><i class="fa-solid fa-check"></i>Skin Prep</li></ul><a href="https://wa.me/916280174636?text=I%20want%20Basic%20Glow%20Package" class="btn" target="_blank">Book Now</a></div>
+        <div class="package-card featured"><h3>Bridal Premium</h3><div class="price">₹6999</div><ul><li><i class="fa-solid fa-check"></i>HD Bridal Makeup</li><li><i class="fa-solid fa-check"></i>Premium Hair Styling</li><li><i class="fa-solid fa-check"></i>Dupatta Setting</li><li><i class="fa-solid fa-check"></i>Long-lasting Look</li></ul><a href="https://wa.me/916280174636?text=I%20want%20Bridal%20Premium%20Package" class="btn" target="_blank">Book Now</a></div>
+        <div class="package-card"><h3>Party Look</h3><div class="price">₹1999</div><ul><li><i class="fa-solid fa-check"></i>Party Makeup</li><li><i class="fa-solid fa-check"></i>Hair Styling</li><li><i class="fa-solid fa-check"></i>Premium Finish</li></ul><a href="https://wa.me/916280174636?text=I%20want%20Party%20Look%20Package" class="btn" target="_blank">Book Now</a></div>
+      </div>
+    </section>
+
+    <section id="reviews" class="reveal">
+      <div class="section-title"><div class="script">Happy Clients</div><h2>What Our Clients Say</h2><div class="line"></div></div>
+      <div class="review-grid">
+        <div class="review-card"><div class="stars">★★★★★</div><p>Best salon experience ever! Makeup was flawless and stayed all day. Highly recommended.</p><div class="client"><img src="https://randomuser.me/api/portraits/women/68.jpg"><strong>Neha Sharma</strong></div></div>
+        <div class="review-card"><div class="stars">★★★★★</div><p>Very professional team and amazing service. They made my special day even more beautiful.</p><div class="client"><img src="https://randomuser.me/api/portraits/women/65.jpg"><strong>Pooja Verma</strong></div></div>
+        <div class="review-card"><div class="stars">★★★★★</div><p>Loved the hairstyle and makeup. Will definitely recommend to my friends and family.</p><div class="client"><img src="https://randomuser.me/api/portraits/women/72.jpg"><strong>Ankita Singh</strong></div></div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact reveal">
+      <div class="contact-wrap">
+        <div class="contact-info">
+          <h2>Contact Info</h2>
+          <div class="info-row"><i class="fa-solid fa-phone"></i><div><strong>Phone</strong><br>+91 62801 74636</div></div>
+          <div class="info-row"><i class="fa-solid fa-envelope"></i><div><strong>Email</strong><br>kiranmakeover@gmail.com</div></div>
+          <div class="info-row"><i class="fa-solid fa-location-dot"></i><div><strong>Location</strong><br>Tanda, Hoshiarpur, Punjab</div></div>
+          <div class="info-row"><i class="fa-regular fa-clock"></i><div><strong>Timing</strong><br>10:00 AM - 8:00 PM</div></div>
+          <div class="social"><a href="#"><i class="fa-brands fa-instagram"></i></a><a href="#"><i class="fa-brands fa-facebook-f"></i></a><a href="#"><i class="fa-brands fa-youtube"></i></a><a href="#"><i class="fa-brands fa-whatsapp"></i></a></div>
+        </div>
+        <form class="booking-form" onsubmit="sendWhatsApp(event)">
+          <h2>Book Appointment</h2>
+          <input type="text" id="name" placeholder="Your Name" required>
+          <input type="tel" id="phone" placeholder="Your Phone" required>
+          <select id="service" required>
+            <option value="">Select Service</option>
+            <option>Bridal Makeup</option><option>Party Makeup</option><option>Hair Styling</option><option>Skin Care</option><option>Nail Art</option><option>Mehndi Design</option>
+          </select>
+          <textarea id="message" rows="4" placeholder="Your Message"></textarea>
+          <button class="btn" type="submit" style="width:100%">Book Now <i class="fa-brands fa-whatsapp"></i></button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="logo" style="justify-content:center"><div class="logo-badge">KM</div><div><h3>KIRAN MAKEOVER</h3><small>BEAUTY BEYOND LIMITS</small></div></div>
+    <p>© 2026 Kiran Makeover. Made with ❤ for your beauty.</p>
+  </footer>
+
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const nav = document.getElementById('nav');
+    const topbar = document.getElementById('topbar');
+    const cursorGlow = document.getElementById('cursorGlow');
+    const tiltCard = document.getElementById('tiltCard');
+
+    menuBtn.addEventListener('click', () => nav.classList.toggle('open'));
+    document.querySelectorAll('.nav a').forEach(a => a.addEventListener('click', () => nav.classList.remove('open')));
+
+    window.addEventListener('scroll', () => {
+      topbar.classList.toggle('scrolled', window.scrollY > 40);
+      document.querySelectorAll('section[id]').forEach(section => {
+        const top = window.scrollY;
+        const offset = section.offsetTop - 130;
+        const height = section.offsetHeight;
+        const id = section.getAttribute('id');
+        if(top >= offset && top < offset + height){
+          document.querySelectorAll('.nav a').forEach(link => link.classList.remove('active'));
+          const active = document.querySelector(`.nav a[href="#${id}"]`);
+          if(active) active.classList.add('active');
+        }
+      });
+    });
+
+    document.addEventListener('mousemove', e => {
+      cursorGlow.style.left = e.clientX + 'px';
+      cursorGlow.style.top = e.clientY + 'px';
+    });
+
+    tiltCard.addEventListener('mousemove', e => {
+      const box = tiltCard.getBoundingClientRect();
+      const x = e.clientX - box.left;
+      const y = e.clientY - box.top;
+      const rotateY = ((x / box.width) - .5) * 16;
+      const rotateX = ((y / box.height) - .5) * -16;
+      tiltCard.querySelector('.bride-card').style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    });
+    tiltCard.addEventListener('mouseleave', () => {
+      tiltCard.querySelector('.bride-card').style.transform = 'rotateX(0deg) rotateY(0deg)';
+    });
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) entry.target.classList.add('show');
+      });
+    }, {threshold:.15});
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    function sendWhatsApp(event){
+      event.preventDefault();
+      const name = document.getElementById('name').value;
+      const phone = document.getElementById('phone').value;
+      const service = document.getElementById('service').value;
+      const message = document.getElementById('message').value;
+      const text = `Hello Kiran Makeover,%0AName: ${name}%0APhone: ${phone}%0AService: ${service}%0AMessage: ${message}`;
+      window.open(`https://wa.me/916280174636?text=${text}`, '_blank');
+    }
+  </script>
+</body>
+</html>
